@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>An simple chat</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <h1>Laboratório WebSocket</h1>
+
+      <p>
+        Status:
+        <strong id="status">Desconectado</strong>
+      </p>
+
+      <button id="connect">Conectar</button>
+      <button id="disconnect" disabled>Desconectar</button>
+
+      <form id="message-form">
+        <input
+          id="message"
+          type="text"
+          placeholder="Digite uma mensagem"
+          required
+        />
+
+        <button id="send" type="submit" disabled>Enviar</button>
+      </form>
+
+      <h2>Mensagens</h2>
+      <ul id="messages"></ul>
+    </main>
+  </body>
+</html>
