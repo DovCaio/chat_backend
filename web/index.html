@@ -1,37 +1,52 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>An simple chat</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Chat WebSocket</title>
+    <link rel="stylesheet" href="/style.css" />
     <script src="/app.js" defer></script>
   </head>
   <body>
     <main>
-      <h1>Laboratório WebSocket</h1>
+      <h1>Chat WebSocket</h1>
 
-      <p>
-        Status:
-        <strong id="status">Desconectado</strong>
-      </p>
+      <section class="configuration">
+        <label>
+          Você é:
+          <select id="user">
+            <option value="caio">Caio</option>
+            <option value="ana">Ana</option>
+          </select>
+        </label>
 
-      <button id="connect">Conectar</button>
-      <button id="disconnect" disabled>Desconectar</button>
+        <label>
+          Conversar com:
+          <select id="recipient">
+            <option value="ana">Ana</option>
+            <option value="caio">Caio</option>
+          </select>
+        </label>
 
-      <form id="message-form">
-        <input
-          id="message"
-          type="text"
-          placeholder="Digite uma mensagem"
-          required
-        />
+        <button id="connect">Conectar</button>
+        <button id="disconnect" disabled>Desconectar</button>
+      </section>
 
-        <button id="send" type="submit" disabled>Enviar</button>
-      </form>
+      <p>Status: <strong id="status">Desconectado</strong></p>
 
-      <h2>Mensagens</h2>
-      <ul id="messages"></ul>
+      <section class="chat">
+        <ul id="messages" aria-live="polite"></ul>
+
+        <form id="message-form">
+          <input
+            id="message"
+            placeholder="Digite sua mensagem..."
+            autocomplete="off"
+            required
+          />
+          <button id="send" type="submit" disabled>Enviar</button>
+        </form>
+      </section>
     </main>
   </body>
 </html>

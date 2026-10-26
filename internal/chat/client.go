@@ -3,6 +3,7 @@ package chat
 import (
 	"context"
 	"encoding/json"
+	"log"
 
 	"github.com/coder/websocket"
 )
@@ -17,6 +18,7 @@ func NewClient(userID string, conn *websocket.Conn ) *Client {
     return &Client{
         userID: userID,
         conn: conn,
+        send: make(chan []byte, 256),
     }
 }
 
@@ -51,16 +53,20 @@ func (c *Client) ReadPump(
 
     for {
         _, data, err := c.conn.Read(ctx)
+
         if err != nil {
+            log.Printf("error when try to get the user connection: %v", err)
             return
         }
 
         var incoming IncomingMessage
         if err := json.Unmarshal(data, &incoming); err != nil {
+            log.Printf("error when try to unmarshal: %v", err)
             continue
         }
 
         if incoming.To == "" || incoming.Content == "" {
+            log.Printf("json empty")
             continue
         }
 
@@ -68,10 +74,11 @@ func (c *Client) ReadPump(
             From:    c.userID,
             Content: incoming.Content,
         })
+
         if err != nil {
+            log.Printf("error when try to marshal: %v", err)
             continue
         }
-
         hub.SendTo(incoming.To, outgoing)
     }
 }
