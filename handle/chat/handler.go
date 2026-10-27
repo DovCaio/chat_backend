@@ -28,7 +28,9 @@ func (h *WebSocketHandler) ServeHTTP(
         return
     }
 
-    conn, err := websocket.Accept(w, r, nil)
+    conn, err := websocket.Accept(w, r, &websocket.AcceptOptions{
+        OriginPatterns: []string{"localhost:3000"},
+    })
     if err != nil {
         log.Printf("Falha no handshake WebSocket: %v", err)
         return
